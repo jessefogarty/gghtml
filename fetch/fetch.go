@@ -2,14 +2,18 @@
 package fetch
 
 import (
-	"io/ioutil"
+	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/PuerkitoBio/goquery"
 )
+
+// func extractLink(index int, element *goquery.Selection) {}
 
 // Fetches a url and returns the response body as a string
 // t := Fetch("https://cbc.ca")
-func Fetch(url string) string {
+func Fetch(url string) {
 
 	// Make HTTP Request
 	resp, err := http.Get(url)
@@ -19,9 +23,16 @@ func Fetch(url string) string {
 	}
 	defer resp.Body.Close() // Close connection
 
-	rb, _ := ioutil.ReadAll(resp.Body) // pass response body to std
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
 
-	ctx := string(rb) // convert bytes(body) to string(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	return ctx
+	doc.Find("a").Each(func(index int, element *goquery.Selection) {
+		link, exists := element.Attr("href")
+		if exists {
+			fmt.Println(link)
+		}
+	})
 }
