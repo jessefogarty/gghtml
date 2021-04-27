@@ -1,4 +1,5 @@
-// fetch retrieves the body of a given URL.
+// Package returns the source code of
+// a URL as a string.
 package fetch
 
 import (
@@ -9,10 +10,12 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// func extractLink(index int, element *goquery.Selection) {}
-
-// Fetches a url and returns the response body as a string
-// t := Fetch("https://cbc.ca")
+// Fetch GET's the URL and returns a
+// goquery string document.
+//
+//	example:
+//
+// 		fetch.Fetch("https://cbc.ca")
 func Fetch(url string) {
 
 	// Make HTTP Request
@@ -29,10 +32,12 @@ func Fetch(url string) {
 		log.Fatal(err)
 	}
 
+	// Find <a> href text and print
 	doc.Find("a").Each(func(index int, element *goquery.Selection) {
 		link, exists := element.Attr("href")
 		if exists {
 			fmt.Println(link)
 		}
 	})
+
 }

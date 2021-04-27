@@ -1,7 +1,7 @@
 package main
 
 import (
-	"webscraper/fetch"
+	"github.com/jessefogarty/go-webscraper/fetch"
 )
 
 func main() {
