@@ -1,9 +1,6 @@
-// Package returns the source code of
-// a URL as a string.
-package fetch
+package webscraper
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -15,8 +12,8 @@ import (
 //
 //	example:
 //
-// 		fetch.Fetch("https://cbc.ca")
-func Fetch(url string) {
+// 	fetch.Fetch("https://cbc.ca")
+func Fetch(url string) *goquery.Document {
 
 	// Make HTTP Request
 	resp, err := http.Get(url)
@@ -32,12 +29,6 @@ func Fetch(url string) {
 		log.Fatal(err)
 	}
 
-	// Find <a> href text and print
-	doc.Find("a").Each(func(index int, element *goquery.Selection) {
-		link, exists := element.Attr("href")
-		if exists {
-			fmt.Println(link)
-		}
-	})
+	return doc
 
 }

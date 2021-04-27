@@ -1,4 +1,4 @@
-module github.com/jessefogarty/go-webscraper
+module github.com/jessefogarty/goscraper
 
 go 1.16
 
