@@ -32,3 +32,4 @@ func Fetch(url string) *goquery.Document {
 	return doc
 
 }
+
