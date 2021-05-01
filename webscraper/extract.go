@@ -10,7 +10,7 @@ func Urls(doc *goquery.Document) []string {
 
 	var urls []string
 
-	re := regexp.MustCompile(`^\w`)git 
+	re := regexp.MustCompile(`^\w`) // could get <domain>.com onwards. Finall.
 
 	doc.Find("a").Each(func(index int, element *goquery.Selection) {
 		link, exists := element.Attr("href")

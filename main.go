@@ -8,11 +8,17 @@ import (
 
 func main() {
 
+	var source webscraper.Source
+
 	var cbc_article string = "https://www.cbc.ca/news/canada/ottawa/ottawa-police-interprovincial-crossings-covid-19-1.5992615"
 
 	doc := webscraper.Fetch(cbc_article)
 
 	a := webscraper.Urls(doc)
 
-	fmt.Println(len(a))
+	source
+
+
+
+	fmt.Println(a)
 }
