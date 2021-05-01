@@ -13,7 +13,7 @@ import (
 //	example:
 //
 // 	fetch.Fetch("https://cbc.ca")
-func Fetch(url string) *goquery.Document {
+func Fetch(url string) *goquery.Document{
 
 	// Make HTTP Request
 	resp, err := http.Get(url)

@@ -22,3 +22,7 @@ func Urls(doc *goquery.Document) []string {
 
 	return urls
 }
+
+func Title(doc *goquery.Document) string {
+	
+}

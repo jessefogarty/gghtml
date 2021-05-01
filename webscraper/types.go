@@ -5,9 +5,9 @@ import (
 )
 
 // the main (return) object for webscraper
-type Source struct {
-	title       *string
-	description *string
-	html        *goquery.Document
-	links       []*string
+type Webpage struct {
+	Title       *string
+	Description *string
+	Html        *goquery.Document
+	Links       []string
 }
