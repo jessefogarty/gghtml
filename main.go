@@ -15,7 +15,7 @@ func main() {
 
 	source.Links = webscraper.Urls(source.Html)
 
-	webscraper.Title(source.Html)
+	webscraper.Metadata(source.Html)
 
 	//fmt.Println(source)
 }
