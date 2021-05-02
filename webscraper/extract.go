@@ -1,7 +1,9 @@
 package webscraper
 
 import (
+	"fmt"
 	"regexp"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -23,6 +25,11 @@ func Urls(doc *goquery.Document) []string {
 	return urls
 }
 
-func Title(doc *goquery.Document) string {
-	
+func Title(doc *goquery.Document) {
+	doc.Find("meta").Each(func(index int, element *goquery.Selection) {
+		tag, _ := element.Attr("property")
+		if strings.Contains(tag, "og"){
+			fmt.Println(tag)
+		}
+	})
 }

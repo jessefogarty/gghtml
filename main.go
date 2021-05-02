@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/jessefogarty/goscraper/webscraper"
 )
 
@@ -17,5 +15,7 @@ func main() {
 
 	source.Links = webscraper.Urls(source.Html)
 
-	fmt.Println(source)
+	webscraper.Title(source.Html)
+
+	//fmt.Println(source)
 }
