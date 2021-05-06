@@ -8,7 +8,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func Urls(doc *goquery.Document) []string {
+func Urls(doc *goquery.Document) *[]string {
 
 	var urls []string
 
@@ -22,7 +22,7 @@ func Urls(doc *goquery.Document) []string {
 		}
 	})
 
-	return urls
+	return &urls
 }
 
 // Extracts data from the metatags of the webpage.

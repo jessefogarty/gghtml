@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/PuerkitoBio/goquery"
 	"github.com/jessefogarty/goscraper/webscraper"
 )
 
 func main() {
+
+	// TODO: Test w/ slice of urls and goroutines
 
 	var cbc_article string = "https://www.cbc.ca/news/canada/ottawa/ottawa-police-interprovincial-crossings-covid-19-1.5992615"
 
@@ -17,21 +18,20 @@ func main() {
 		Html: webscraper.Fetch(cbc_article),
 	}*/
 
-	var source struct {
-		Title       string
-		Description string
-		Html        string
-		Links       []string
-		doc         *goquery.Document
+
+	source := webscraper.Webpage{}
+
+	doc := webscraper.Fetch(cbc_article)
+	source.Links = webscraper.Urls(doc)
+	source.Html, _ = doc.Html()
+
+	webscraper.Metadata(doc)
+
+	j, err := json.Marshal(source)
+
+	if err != nil {
+		fmt.Println(err)
 	}
 
-	source.doc = webscraper.Fetch(cbc_article)
-	source.Links = webscraper.Urls(source.doc)
-	source.Html, _ = source.doc.Html()
-
-	webscraper.Metadata(source.doc)
-
-	j, _ := json.Marshal(source)
-
-	fmt.Printf("%s", string(j))
+	fmt.Println(string(j))
 }
