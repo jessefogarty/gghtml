@@ -8,3 +8,7 @@ type Webpage struct {
 	Html        string
 	Links       *[]string
 }
+
+type WebscraperJSON struct {
+	Articles []string
+}
