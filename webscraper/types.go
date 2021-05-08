@@ -5,10 +5,12 @@ package webscraper
 type Webpage struct {
 	//Title       *string
 	//Description *string
+	InputOrder  int
 	Html        string
-	Links       *[]string
 }
 
-type WebscraperJSON struct {
-	Articles []string
+type WebscraperJSON string
+
+type ExportData struct {
+	Articles []Webpage
 }

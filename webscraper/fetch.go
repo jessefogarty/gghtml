@@ -13,7 +13,7 @@ import (
 //	example:
 //
 // 	fetch.Fetch("https://cbc.ca")
-func Fetch(url string) *goquery.Document{
+func Fetch(url string) string{
 
 	// Make HTTP Request
 	resp, err := http.Get(url)
@@ -29,7 +29,9 @@ func Fetch(url string) *goquery.Document{
 		log.Fatal(err)
 	}
 
-	return doc
+	html, _ := doc.Html()
+
+	return html
 
 }
 

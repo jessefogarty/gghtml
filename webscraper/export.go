@@ -5,24 +5,14 @@ import (
 	"fmt"
 )
 
-func Export(articles []string) WebscraperJSON {
+func Export(articles ExportData) string {
 
-	for _, url := range articles {
-		source := Webpage{}
+	j, err := json.Marshal(articles)
 
-		doc := Fetch(url)
-		source.Links = Urls(doc)
-		source.Html, _ = doc.Html()
-
-		Metadata(doc)
-
-		j, err := json.Marshal(source)
-
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		fmt.Println(string(j))
-
+	if err != nil {
+		fmt.Println(err)
 	}
+
+	return string(j)
+
 }

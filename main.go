@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/jessefogarty/goscraper/webscraper"
 )
 
@@ -13,10 +15,5 @@ func main() {
 		"https://www.cbc.ca/news/canada/toronto/ontario-ford-long-term-care-criminal-charges-1.6016274",
 	}
 
-	// initialize source with html field
-	/*source := webscraper.Webpage{
-		Html: webscraper.Fetch(cbc_article),
-	}*/
-
-	for l in len(input) {}
+	fmt.Printf("%s", *webscraper.Scraper(input))
 }
