@@ -12,8 +12,7 @@ func Export(articles ExportData) string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	data := &j
 
-	return string(*data)
+	return string(j)
 
 }

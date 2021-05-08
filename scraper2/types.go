@@ -1,11 +1,10 @@
-package webscraper
-
+package main
 
 // Webpage represents the article object for each url.
 // Html source is scraped and input queue is saved.
 type Webpage struct {
-	InputOrder  *int
-	Html        string
+	InputOrder *int
+	Html       string
 }
 
 // A string representation of all processed data.

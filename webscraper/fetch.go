@@ -13,10 +13,10 @@ import (
 //	example:
 //
 // 	fetch.Fetch("https://cbc.ca")
-func Fetch(url string) string{
+func Fetch(url *string) string{
 
 	// Make HTTP Request
-	resp, err := http.Get(url)
+	resp, err := http.Get(*url)
 
 	if err != nil {
 		log.Fatal(err)
