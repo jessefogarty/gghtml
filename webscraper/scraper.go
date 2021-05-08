@@ -9,7 +9,7 @@ func convert(ch chan Webpage, l []string) {
 	close(ch)
 }
 
-func Scraper(input []string) *string {
+func Scraper(input []string) WebscraperJSON {
 	ch := make(chan Webpage)
 
 	articles := ExportData{}
@@ -21,8 +21,9 @@ func Scraper(input []string) *string {
 		articles.Articles = append(articles.Articles, a)
 	}
 
-	data := Export(articles)
+	data := WebscraperJSON(Export(articles))
 
-	return &data
+
+	return data
 
 }

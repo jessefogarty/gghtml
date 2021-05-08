@@ -15,5 +15,5 @@ func main() {
 		"https://www.cbc.ca/news/canada/toronto/ontario-ford-long-term-care-criminal-charges-1.6016274",
 	}
 
-	fmt.Printf("%s", *webscraper.Scraper(input))
+	fmt.Printf("%s", webscraper.Scraper(input))
 }
