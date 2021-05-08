@@ -24,7 +24,7 @@ func main() {
 			if i != len(s) {
 				go get(v, ch)
 				go out(ch, ch2)
-				fmt.Println(<-ch2)
+				fmt.Printf("%d - %T | ", i, <-ch2)
 			}
 
 		}
