@@ -1,20 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strings"
 
-	"github.com/jessefogarty/goscraper/webscraper"
+	"github.com/jessefogarty/goscraper/gghtml"
 )
 
 func main() {
 
 	args := os.Args[:]
 	if len(args) == 2 {
-		str := strings.Split(args[1], ",")
-		fmt.Println(str)
-		fmt.Printf("%s", webscraper.Scraper(str))
+		strin := strings.Split(args[1], ",")
+		gghtml.Fetch(strin)
 	} else {
 		os.Exit(1)
 	}

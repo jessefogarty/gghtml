@@ -1,52 +1,44 @@
-package main
+package gghtml
 
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
-	"os"
-	"strings"
 	"sync"
-
-	"github.com/PuerkitoBio/goquery"
 )
 
-func main() {
+func Fetch(s []string) {
 
-	args := os.Args[:]
+	ch := make(chan Webpage, len(s)) // init buffer
+	var wg sync.WaitGroup
 
-	if len(args) == 2 {
-
-		s := strings.Split(args[1], ",")
-
-		ch := make(chan Webpage, len(s)) // init buffer
-		var wg sync.WaitGroup
-
-		for i, v := range s {
-			if i != len(s) {
-				wg.Add(1)
-				go get(v, i, ch, &wg)
-			}
-
+	for i, v := range s {
+		if i != len(s) {
+			wg.Add(1)
+			go get(v, i, ch, &wg)
 		}
-		wg.Wait(); close(ch)
-
-		articles := ExportData{}
-
-		for a := range ch {
-
-			articles.Articles = append(articles.Articles, a)
-
-		}
-
-		j, _ := json.Marshal(articles)
-
-		fmt.Printf("%s", j)
-
 
 	}
+	wg.Wait()
+	close(ch)
+
+	articles := ExportData{}
+
+	for a := range ch {
+
+		articles.Articles = append(articles.Articles, a)
+
+	}
+
+	j, _ := json.Marshal(articles)
+
+	fmt.Printf("%s", j)
+
 }
 
+// get performs an HTTP GET on the url string
+// the
 func get(url string, i int, ch chan Webpage, wg *sync.WaitGroup) {
 
 	defer wg.Done()
@@ -60,17 +52,18 @@ func get(url string, i int, ch chan Webpage, wg *sync.WaitGroup) {
 		ch <- article
 	}
 
+	html, _ := io.ReadAll(resp.Body)
 	defer resp.Body.Close()
 
-	doc, e := goquery.NewDocumentFromReader(resp.Body)
+	//doc, e := goquery.NewDocumentFromReader(resp.Body)
 
 	if e != nil {
 		article.Html = "0"
 		ch <- article
 	}
 
-	html, _ := doc.Html()
-	article.Html = html
+	//html, _ := doc.Html()
+	article.Html = string(html)
 
 	ch <- article
 
