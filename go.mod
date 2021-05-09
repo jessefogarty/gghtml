@@ -1,3 +1,3 @@
-module github.com/jessefogarty/goscraper
+module github.com/jessefogarty/gghtml
 
 go 1.16

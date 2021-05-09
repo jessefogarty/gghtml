@@ -4,7 +4,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/jessefogarty/goscraper/gghtml"
+	"github.com/jessefogarty/gghtml/gghtml"
 )
 
 func main() {

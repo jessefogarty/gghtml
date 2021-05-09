@@ -1,15 +1,37 @@
-# Go Webscraper - borrow the web in Go.
+# gghtml - (Go GET HTML) a threaded html source downloader.
 
-> My first forray into Go coding.
+> Speed up the GET request and HTML retrieval.
 
-The aim of the module is to provide a simple webpage scraper. Below you'll find a list of arguments I plan to return.
+I created gghtml to speed up the downloading of a webpage html source code which was previously done in python. Below is an example usage from my python project.
 
-- Title
-- Description
-- <p> tags (ordered)
-- <a> tags (ordered)
-- Additional Meta headers
-  - Summary, Author, Social Image and, Keywords
+## Usage
 
+```py
+import subprocess
 
-Depending on how quickly I pick up Golang, I may integrate this into another python project. Keeping the ML and data processing to python and network io related work to Go.
+# a: string = list of urls comma separated
+a = "<url1>,<url2>"
+
+return_json = subprocess.run(
+  ["go", "<gghtml_DirPath>", a],
+  capture_output=True
+)
+```
+
+### Return
+
+```go
+// The return object is a string dumped to 
+// stdout in the formatted object below
+// Articles (list)
+//  |-> webpage (items)
+
+{"Articles": [
+  {"InputOrder": int, "html": string}]
+}
+```
+
+#### TODO
+
+- [ ] **comparison Go vs Python**
+- [ ] Shared Binary
