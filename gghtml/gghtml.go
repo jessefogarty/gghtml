@@ -8,6 +8,9 @@ import (
 	"sync"
 )
 
+// Handles the threaded downloading of HTML source for each URL in the array argument.
+//
+// Returns string JSON object (of ExportData{}) to stdout
 func Fetch(s []string) {
 
 	ch := make(chan Webpage, len(s)) // init buffer
@@ -37,8 +40,13 @@ func Fetch(s []string) {
 
 }
 
-// get performs an HTTP GET on the url string
-// the
+/*
+Handles the HTTP GET request for a given URL string.
+
+Creates a Webpage{} object with retained input order and html.
+
+Adds the new Webpage{} to the buffered channel.
+*/
 func get(url string, i int, ch chan Webpage, wg *sync.WaitGroup) {
 
 	defer wg.Done()
@@ -54,13 +62,6 @@ func get(url string, i int, ch chan Webpage, wg *sync.WaitGroup) {
 
 	html, _ := io.ReadAll(resp.Body)
 	defer resp.Body.Close()
-
-	//doc, e := goquery.NewDocumentFromReader(resp.Body)
-
-	if e != nil {
-		article.Html = "0"
-		ch <- article
-	}
 
 	//html, _ := doc.Html()
 	article.Html = string(html)
