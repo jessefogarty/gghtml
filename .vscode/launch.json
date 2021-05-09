@@ -5,14 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "GoScraper",
+            "name": "Launch Package",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}",
-            "args": [
-                "https://cbc.ca,https://torontosun.com"
-            ]
+            "program": "${fileDirname}",
+            "args": ["https://cbc.ca,https://unkwn1.dev"]
         }
     ]
 }
