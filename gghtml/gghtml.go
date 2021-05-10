@@ -6,12 +6,15 @@ import (
 	"io"
 	"net/http"
 	"sync"
+	"time"
 )
 
 // Handles the threaded downloading of HTML source for each URL in the array argument.
 //
 // Returns string JSON object (of ExportData{}) to stdout
 func Fetch(s []string) {
+
+	t0 := time.Now()
 
 	ch := make(chan Webpage, len(s)) // init buffer
 	var wg sync.WaitGroup
@@ -36,8 +39,9 @@ func Fetch(s []string) {
 
 	j, _ := json.Marshal(articles)
 
-	fmt.Printf("%s", j)
+	t1 := time.Now()
 
+	fmt.Printf("%s \n %v", j, t1.Sub(t0))
 }
 
 /*
