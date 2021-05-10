@@ -33,4 +33,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     t = time.perf_counter()
     test(args.data.split(","))
-    print(round(time.perf_counter() - t, 2))
+    print(f"Python Finished in {round(time.perf_counter() - t, 2)} seconds. ")

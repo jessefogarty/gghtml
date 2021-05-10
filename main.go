@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/jessefogarty/gghtml/gghtml"
 )
@@ -17,9 +16,7 @@ func main() {
 
 	//args := os.Args[:]
 	strin := strings.Split(os.Args[1], ",")
-	t0 := time.Now()
-	gghtml.Fetch(strin)
-	t1 := time.Now()
-	fmt.Printf("Finished in: %vms", t1.Sub(t0).Seconds())
+	_, t := gghtml.Fetch(strin)
+	fmt.Printf("Golang finished in: \n %f", t)
 
 }
