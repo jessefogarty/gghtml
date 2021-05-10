@@ -1,12 +1,13 @@
 package gghtml
 
 import (
+	//"encoding/json"
+	//"fmt"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"sync"
-	"time"
 )
 
 // Handles the threaded downloading of HTML source for each URL in the array argument.
@@ -14,15 +15,13 @@ import (
 // Returns string JSON object (of ExportData{}) to stdout
 func Fetch(s []string) {
 
-	t0 := time.Now()
-
 	ch := make(chan Webpage, len(s)) // init buffer
 	var wg sync.WaitGroup
 
 	for i, v := range s {
 		if i != len(s) {
 			wg.Add(1)
-			go get(v, i, ch, &wg)
+			go get(v, i, &ch, &wg)
 		}
 
 	}
@@ -34,14 +33,12 @@ func Fetch(s []string) {
 	for a := range ch {
 
 		articles.Articles = append(articles.Articles, a)
-
 	}
 
 	j, _ := json.Marshal(articles)
 
-	t1 := time.Now()
+	fmt.Printf("%s", j)
 
-	fmt.Printf("%s \n %v", j, t1.Sub(t0))
 }
 
 /*
@@ -51,26 +48,21 @@ Creates a Webpage{} object with retained input order and html.
 
 Adds the new Webpage{} to the buffered channel.
 */
-func get(url string, i int, ch chan Webpage, wg *sync.WaitGroup) {
+func get(url string, i int, ch *chan Webpage, wg *sync.WaitGroup) {
 
 	defer wg.Done()
 
-	article := Webpage{InputOrder: i}
+	article := &Webpage{InputOrder: i}
 
-	resp, e := http.Get(url)
-
-	if e != nil {
-		article.Html = "0"
-		ch <- article
-	}
+	resp, _ := http.Get(url)
 
 	html, _ := io.ReadAll(resp.Body)
-	defer resp.Body.Close()
 
-	//html, _ := doc.Html()
+	resp.Body.Close()
+
 	article.Html = string(html)
 
-	ch <- article
+	*ch <- *article
 
 }
 
